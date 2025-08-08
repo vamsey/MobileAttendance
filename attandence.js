@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     attendance = parseFloat(attendance.toFixed(2));
     let days = 0;
 
-    let result = 'current attendance: ${attendance}%\n`;
+    let result = `current attendance: ${attendance}%\n`;
 
     if (attendance >= required) {
       result += "You already have required attendance.";
@@ -60,4 +60,5 @@ document.addEventListener("DOMContentLoaded", function () {
     typeWriter();
   }
 });
+
 
