@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     attendance = parseFloat(attendance.toFixed(2));
     let days = 0;
 
-    let result = `current attendance: ${attendance}%\n`;
+    let result = `current attendance: ${attendance}%<br>`;
 
     if (attendance >= required) {
       result += "You already have required attendance.";
@@ -46,12 +46,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Reset any previous typewriter effect
     clearTimeout(typingTimeout);
-    display.innerText = "";
+    display.innerHTML = "";
     let i = 0;
 
     function typeWriter() {
       if (i < result.length) {
-        display.innerText += result.charAt(i);
+        display.innerHTML += result.charAt(i);
         i++;
         typingTimeout = setTimeout(typeWriter, 20);
       }
@@ -60,5 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
     typeWriter();
   }
 });
+
 
 
