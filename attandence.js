@@ -27,10 +27,10 @@ document.addEventListener("DOMContentLoaded", function () {
     attendance = parseFloat(attendance.toFixed(2));
     let days = 0;
 
-    let result = `Your current attendance percentage is: ${attendance}%\n`;
+    let result = 'current attendance: ${attendance}%\n`;
 
     if (attendance >= required) {
-      result += "You're already meeting the required attendance.";
+      result += "You already have required attendance.";
     } else {
       while (attendance < required) {
         days++;
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         conducted += 6;
         attendance = (attended / conducted) * 100;
       }
-      result += `You need to attend the next ${days} days to reach ${required}%.`;
+      result += `You need to attend:${days} days.`;
     }
 
     // Animate progress bar
@@ -60,3 +60,4 @@ document.addEventListener("DOMContentLoaded", function () {
     typeWriter();
   }
 });
+
