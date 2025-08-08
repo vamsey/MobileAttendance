@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const calcButton = document.querySelector(".calcBtn");
   const progressBar = document.querySelector(".progress-bar");
 
-  let typingTimeout; // To control typewriter animation
+  let typingTimeout;
 
   calcButton.addEventListener("click", calculateAttendance);
 
@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Input validation
     if (isNaN(attended) || isNaN(conducted) || isNaN(required) || conducted === 0) {
-      display.innerText = "Please enter valid values.";
       progressBar.style.width = "0%";
+      display.innerHTML = `<div style="color: red; font-weight: bold;">🚫 Please enter valid values.</div>`;
       return;
     }
 
@@ -27,10 +27,10 @@ document.addEventListener("DOMContentLoaded", function () {
     attendance = parseFloat(attendance.toFixed(2));
     let days = 0;
 
-    let result = `current attendance: ${attendance}%<br>`;
+    let result = `<div><strong>📊 Current Attendance:</strong> ${attendance}%</div>`;
 
     if (attendance >= required) {
-      result += "You already have required attendance.";
+      result += `<div style="color: green;"><strong>✅ You're good!</strong> You already have the required attendance.</div>`;
     } else {
       while (attendance < required) {
         days++;
@@ -38,28 +38,36 @@ document.addEventListener("DOMContentLoaded", function () {
         conducted += 6;
         attendance = (attended / conducted) * 100;
       }
-      result += `You need to attend:${days} days.`;
+      result += `<div style="color: orange;"><strong>⚠️ Attention:</strong> You need to attend <strong>${days} days</strong> to reach ${required}%.</div>`;
     }
 
     // Animate progress bar
     progressBar.style.width = `${Math.min(attendance, 100)}%`;
 
-    // Reset any previous typewriter effect
-    clearTimeout(typingTimeout);
+    // Animate HTML result
+    animateHTML(result);
+  }
+
+  function animateHTML(html) {
     display.innerHTML = "";
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = html;
+    const nodes = Array.from(tempDiv.childNodes);
     let i = 0;
 
-    function typeWriter() {
-      if (i < result.length) {
-        display.innerHTML += result.charAt(i);
+    function animateNode() {
+      if (i < nodes.length) {
+        display.appendChild(nodes[i]);
         i++;
-        typingTimeout = setTimeout(typeWriter, 20);
+        setTimeout(animateNode, 300); // Delay between lines
       }
     }
 
-    typeWriter();
+    animateNode();
   }
 });
+
+
 
 
 
